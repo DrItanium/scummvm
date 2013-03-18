@@ -36,7 +36,7 @@ extern "C" {
    #include "clips.h"
 }
 
-namespace expert-system {
+namespace ExpertSystem {
    class Console;
 
    class ExpertSystemEngine : public Engine {

@@ -239,5 +239,5 @@ endif
 
 ifdef ENABLE_CLIPS
 DEFINES += -DENABLE_CLIPS=$(ENABLE_CLIPS)
-MODULES += engines/clips
+MODULES += engines/expert-system
 endif

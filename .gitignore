@@ -168,3 +168,6 @@ ScummVM.includes
 
 #Ignore Komodo IDE/Edit project files
 *.komodoproject
+
+#Ignore the adventure engine folder
+engines/AdventureEngine

@@ -171,3 +171,5 @@ ScummVM.includes
 
 #Ignore the adventure engine folder
 engines/AdventureEngine
+#Ignore the catharsis folder as well
+engines/catharsis

@@ -20,35 +20,29 @@
  *
  */
 
-/*
- * This file is based on WME Lite.
- * http://dead-code.org/redir.php?target=wmelite
- * Copyright (c) 2011 Jan Nedoma
- */
-#ifndef WINTERMUTE_BASE_SAVE_THUMB_HELPER_H
-#define WINTERMUTE_BASE_SAVE_THUMB_HELPER_H
+#ifndef NEVERHOOD_MODULES_MODULE2300_H
+#define NEVERHOOD_MODULES_MODULE2300_H
 
+#include "neverhood/neverhood.h"
+#include "neverhood/module.h"
+#include "neverhood/scene.h"
 
-#include "engines/wintermute/base/base.h"
+namespace Neverhood {
 
-namespace Wintermute {
+// Module2300
 
-class BaseImage;
-
-class BaseSaveThumbHelper : public BaseClass {
+class Module2300 : public Module {
 public:
-	BaseSaveThumbHelper(BaseGame *inGame);
-	virtual ~BaseSaveThumbHelper(void);
-	bool storeThumbnail(bool doFlip = false);
-	bool storeScummVMThumbNail(bool doFlip = false);
-
-	BaseImage *_thumbnail;
-	BaseImage *_scummVMThumb;
-private:
-	BaseImage *storeThumb(bool doFlip, int width, int height);
-	BaseImage *_richThumbnail;
+	Module2300(NeverhoodEngine *vm, Module *parentModule, int which);
+	virtual ~Module2300();
+protected:
+	int _sceneNum;
+	bool _isWallBroken;
+	int _soundVolume;
+	void createScene(int sceneNum, int which);
+	void updateScene();
 };
 
-} // end of namespace Wintermute
+} // End of namespace Neverhood
 
-#endif
+#endif /* NEVERHOOD_MODULES_MODULE2300_H */

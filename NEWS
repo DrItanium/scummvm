@@ -1,12 +1,18 @@
 For a more comprehensive changelog of the latest experimental code, see:
         https://github.com/scummvm/scummvm/commits/
 
-1.6.0 (????-??-??)
+1.7.0 (????-??-??)
+
+
+1.6.0 (2013-05-31)
  New Games:
    - Added support for 3 Skulls of the Toltecs.
    - Added support for Eye of the Beholder.
    - Added support for Eye of the Beholder II: The Legend of Darkmoon.
-   - Added support for Tony Tough and the Night of Roasted Moths
+   - Added support for Hopkins FBI.
+   - Added support for Tony Tough and the Night of Roasted Moths.
+   - Added support for The Journeyman Project: Pegasus Prime.
+   - Added support for the Macintosh version of Discworld 1.
 
  General:
    - Added a new save/load chooser based on a grid of thumbnails. This is only
@@ -72,6 +78,12 @@ For a more comprehensive changelog of the latest experimental code, see:
      General MIDI instruments, and should sound a lot closer to the original.
    - Added sound and music support for the Macintosh version of Loom.
    - Handle double-clicking in the Macintosh version of Loom.
+   - Major bugfixes in INSANE (the Full Throttle bike fights).
+
+ TOUCHE:
+   - Added support for Enhanced Music by James Woodcock
+     (http://www.jameswoodcock.co.uk/category/scummvm-music-enhancement-project/).
+
 
 1.5.0 (2012-07-27)
  New Games:

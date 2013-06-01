@@ -37,6 +37,7 @@
 #include "base/plugins.h"
 #include "base/version.h"
 #include "gui/saveload.h"
+#include "video/theora_decoder.h"
 #include "video/qt_decoder.h"
 
 #include "pegasus/console.h"
@@ -238,6 +239,9 @@ bool PegasusEngine::detectOpeningClosingDirectory() {
 
 void PegasusEngine::createItems() {
 	Common::SeekableReadStream *res = _resFork->getResource(MKTAG('N', 'I', 't', 'm'), 0x80);
+
+	if (!res)
+		error("Couldn't find neighborhood items resource");
 
 	uint16 entryCount = res->readUint16BE();
 
@@ -1359,8 +1363,14 @@ bool PegasusEngine::playMovieScaled(Video::VideoDecoder *video, uint16 x, uint16
 		if (video->needsUpdate()) {
 			const Graphics::Surface *frame = video->decodeNextFrame();
 
-			if (frame)
-				drawScaledFrame(frame, x, y);
+			if (frame) {
+				if (frame->w <= 320 && frame->h <= 240) {
+					drawScaledFrame(frame, x, y);
+				} else {
+					_system->copyRectToScreen((byte *)frame->pixels, frame->pitch, x, y, frame->w, frame->h);
+					_system->updateScreen();
+				}
+			}
 		}
 
 		Input input;
@@ -1384,6 +1394,19 @@ void PegasusEngine::die(const DeathReason reason) {
 }
 
 void PegasusEngine::doDeath() {
+#ifdef USE_THEORADEC
+	// The updated demo has a new Theora video for the closing
+	if (isDVDDemo() && _deathReason == kPlayerWonGame) {
+		Video::TheoraDecoder decoder;
+
+		if (decoder.loadFile("Images/Demo TSA/DemoClosing.ogg")) {
+			throwAwayEverything();
+			decoder.start();
+			playMovieScaled(&decoder, 0, 0);
+		}
+	}
+#endif
+
 	_gfx->doFadeOutSync();
 	throwAwayEverything();
 	useMenu(new DeathMenu(_deathReason));
@@ -1588,6 +1611,18 @@ void PegasusEngine::startNewGame() {
 		GameState.setPrehistoricSeenFlyer2(false);
 		GameState.setPrehistoricSeenBridgeZoom(false);
 		GameState.setPrehistoricBreakerThrown(false);
+
+#ifdef USE_THEORADEC
+		if (isDVD()) {
+			// The updated demo has a new Theora video for the closing
+			Video::TheoraDecoder decoder;
+
+			if (decoder.loadFile("Images/Demo TSA/DemoOpening.ogg")) {
+				decoder.start();
+				playMovieScaled(&decoder, 0, 0);
+			}
+		}
+#endif
 	} else {
 		jumpToNewEnvironment(kCaldoriaID, kCaldoria00, kEast);
 	}

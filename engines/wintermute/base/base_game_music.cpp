@@ -177,7 +177,7 @@ bool BaseGameMusic::updateMusicCrossfade() {
 		_music[_musicCrossfadeChannel2]->play();
 	}
 	
-	uint32 currentTime = _gameRef->_liveTimer - _musicCrossfadeStartTime;
+	uint32 currentTime = _gameRef->getLiveTimer()->getTime() - _musicCrossfadeStartTime;
 	
 	if (currentTime >= _musicCrossfadeLength) {
 		_musicCrossfadeRunning = false;
@@ -214,7 +214,7 @@ bool BaseGameMusic::updateMusicCrossfade() {
 
 bool BaseGameMusic::persistChannels(BasePersistenceManager *persistMgr) {
 	for (int i = 0; i < NUM_MUSIC_CHANNELS; i++) {
-		persistMgr->transfer(TMEMBER(_music[i]));
+		persistMgr->transferPtr(TMEMBER_PTR(_music[i]));
 		persistMgr->transfer(TMEMBER(_musicStartTime[i]));
 	}
 	return true;
@@ -469,7 +469,7 @@ bool BaseGameMusic::scCallMethod(ScScript *script, ScStack *stack, ScStack *this
 			return STATUS_OK;
 		}
 		
-		_musicCrossfadeStartTime = _gameRef->_liveTimer;
+		_musicCrossfadeStartTime = _gameRef->getLiveTimer()->getTime();
 		_musicCrossfadeChannel1 = channel1;
 		_musicCrossfadeChannel2 = channel2;
 		_musicCrossfadeLength = fadeLength;

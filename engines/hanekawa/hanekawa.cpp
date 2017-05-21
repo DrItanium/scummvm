@@ -29,6 +29,36 @@
 #include "hanekawa/hanekawa.h"
 #include "hanekawa/script.h"
 
+extern "C" {
+#include "maya/clips.h"
+}
+
 namespace Hanekawa {
+
+HanekawaEngine::HanekawaEngine(OSystem *syst, const HanekawaGameDescription *gameDesc) 
+	: Engine(syst),
+	_gameDescription(gameDesc),
+	_rnd("hanekawa") {
+
+}
+
+HanekawaEngine::~HanekawaEngine() {
+	DestroyEnvironment(_environment);
+	_environment = nullptr;
+	delete _console;
+}
+#define HANEKAWA_ENGINE_REFERENCE USER_ENVIRONMENT_DATA
+void HanekawaEngine::initialize() {
+	_environment = EnvCreateEnvironment();
+	// install a back reference to this class
+	AllocateEnvironmentData(_environment, HANEKAWA_ENGINE_REFERENCE, sizeof(HanekawaEngineWrapper), NULL);
+	auto wrap = extractReference(_environment);
+	wrap->_reference = this;
+}
+
+HanekawaEngineWrapper* extractReference(void* _env) noexcept {
+	return static_cast<HanekawaEngineWrapper*>(GetEnvironmentData(_environment, HANEKAWA_ENGINE_REFERENCE));
+}
+
 
 } // End of namespace Hanekawa

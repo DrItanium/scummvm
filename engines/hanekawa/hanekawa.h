@@ -43,10 +43,6 @@
 
 namespace Hanekawa {
 struct HanekawaGameDescription;
-class Console;
-class Core;
-class Text;
-class Sound;
 
 
 
@@ -64,10 +60,6 @@ public:
 	const HanekawaGameDescription *_gameDescription;
 	Common::RandomSource _rng;
 
-	Core *_core;
-	
-
-
 protected:
 	virtual Common::Error run() override;
 	virtual bool hasFeature(EngineFeature f) const override;
@@ -75,12 +67,20 @@ protected:
 	void initialize();
 	void shutdown();
 
-	Console *_console;
+	void *_environment;
 
 	uint _curCursor;
 	uint _elapsedFrames;
 	int _videoNum;
 };
+
+
+struct HanekawaEngineWrapper {
+	// we don't want anyone to mess with this in memory once it has been placed
+	HanekawaEngine * const _reference; 
+};
+
+HanekawaEngineWrapper* extractReference(void* _env) noexcept;
 
 } // End of namespace Hanekawa
 

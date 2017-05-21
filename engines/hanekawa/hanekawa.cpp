@@ -29,6 +29,8 @@
 #include "common/error.h"
 #include "common/system.h"
 #include "graphics/palette.h"
+#include "common/debug.h"
+#include "common/debug-channels.h"
 
 #include "engines/util.h"
 #include "hanekawa/hanekawa.h"
@@ -44,26 +46,28 @@ namespace Hanekawa {
 HanekawaEngine::HanekawaEngine(OSystem *syst) 
 	: Engine(syst),
 	_rng("hanekawa") {
-
+	debug("HanekawaEngine::HanekawaEngine");
 }
 
 HanekawaEngine::~HanekawaEngine() {
+	debug("HanekawaEngine::~HanekawaEngine");
 	DestroyEnvironment(_environment);
 	_environment = nullptr;
+	delete _console;
 }
 #define HANEKAWA_ENGINE_REFERENCE USER_ENVIRONMENT_DATA
-void HanekawaEngine::initialize() {
+
+Common::Error HanekawaEngine::run() {
+	debug("HanekawaEngine::run()");
+	// initialize the screen
+	initGraphics(320, 200, false);
 	_environment = CreateEnvironment();
+	_console = new Console(this);
 	// install a back reference to this class
 	AllocateEnvironmentData(_environment, HANEKAWA_ENGINE_REFERENCE, sizeof(HanekawaEngineWrapper), NULL);
 	auto wrap = extractReference(_environment);
 	wrap->_reference = this;
-}
 
-Common::Error HanekawaEngine::run() {
-	// initialize the screen
-	initGraphics(320, 200, false);
-	initialize();
 
 	return Common::kNoError;
 }

@@ -40,11 +40,15 @@
 #include "common/random.h"
 
 #include "engines/engine.h"
+#include "gui/debugger.h"
 
 namespace Hanekawa {
-struct HanekawaGameDescription;
+class Console;
 
-
+enum DebugChannels {
+	kHanekawaDebugExample = 1 << 0,
+	kHanekawaDebugExample2 = 1 << 1,
+};
 
 class HanekawaEngine : public Engine {
 public:
@@ -59,9 +63,8 @@ public:
 protected:
 	virtual Common::Error run() override;
 
-	void initialize();
-
 	void *_environment;
+	Console *_console;
 };
 
 
@@ -71,6 +74,13 @@ struct HanekawaEngineWrapper {
 };
 
 HanekawaEngineWrapper* extractReference(void* _env) noexcept;
+
+class Console : public GUI::Debugger {
+public:
+	Console(HanekawaEngine *vm) { };
+	virtual ~Console() { }
+
+};
 
 } // End of namespace Hanekawa
 

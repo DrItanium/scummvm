@@ -48,36 +48,26 @@ struct HanekawaGameDescription;
 
 class HanekawaEngine : public Engine {
 public:
-	HanekawaEngine(OSystem *syst, const HanekawaGameDescription *gameDesc);
+	HanekawaEngine(OSystem *syst);
 	virtual ~HanekawaEngine();
-
-	int getGameType() const;
-	uint32 getFeatures() const;
 
 	Common::Language getLanguage() const;
 	Common::Platform getPlatform() const;
 
-	const HanekawaGameDescription *_gameDescription;
 	Common::RandomSource _rng;
 
 protected:
 	virtual Common::Error run() override;
-	virtual bool hasFeature(EngineFeature f) const override;
 
 	void initialize();
-	void shutdown();
 
 	void *_environment;
-
-	uint _curCursor;
-	uint _elapsedFrames;
-	int _videoNum;
 };
 
 
 struct HanekawaEngineWrapper {
 	// we don't want anyone to mess with this in memory once it has been placed
-	HanekawaEngine * const _reference; 
+	HanekawaEngine * _reference; 
 };
 
 HanekawaEngineWrapper* extractReference(void* _env) noexcept;

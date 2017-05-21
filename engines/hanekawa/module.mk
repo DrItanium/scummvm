@@ -171,7 +171,7 @@ MODULE_OBJS :=  \
 
 # this module can be build as a plugin
 ifeq ($(ENABLE_HANEKAWA), DYNAMIC_PLUGIN)
-	PLUGIN := 1
+PLUGIN := 1
 endif 
 
 # Include common rules

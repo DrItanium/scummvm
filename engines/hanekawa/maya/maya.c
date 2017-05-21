@@ -24,10 +24,6 @@
 #include "maya.h"
 #include "mayasetup.h"
 
-#if BOOST_EXTENSIONS
-#include "boost.h"
-#endif 
-
 #if FUNCTIONAL_EXTENSIONS
 #include "functional.h"
 #endif
@@ -47,9 +43,6 @@ void InstallMayaExtensions(void* environment) {
 	EnvAddUDF(environment, "bye",   "v", ExitCommand,    "ExitCommand", 0,1,"l",NULL);
 	EnvAddUDF(environment, "next-token", "synldfie", NextToken, "NextToken", 1, 1, "y", NULL);
 	EnvAddUDF(environment, "last$", "m", LastFunction, "LastFunction", 1,1,"m",NULL);
-#if  BOOST_EXTENSIONS
-	InstallBoostExtensions(environment);
-#endif
 #if FUNCTIONAL_EXTENSIONS
 	InstallFunctionalExtensions(environment);
 #endif

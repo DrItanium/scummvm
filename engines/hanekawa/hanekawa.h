@@ -24,8 +24,6 @@
  */
 
 // the hanekawa architecture is a game engine / simulator
-// It is a 32-bit cpu with the rest of the information defined as I buld this
-// thing
 #ifndef HANEKAWA_HANEKAWA_H
 #define HANEKAWA_HANEKAWA_H
 

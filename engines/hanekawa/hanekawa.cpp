@@ -23,67 +23,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-// the hanekawa architecture is a game engine / simulator
-// It is a 32-bit cpu with the rest of the information defined as I buld this
-// thing
-#ifndef HANEKAWA_HANEKAWA_H
-#define HANEKAWA_HANEKAWA_H
+#include "common/config-manager.h"
 
-#if __cplusplus < 201103L
-#error "C++11 support required for hanekawa architecture!"
-#endif
 
-#include "common/scummsys.h"
-#include "common/file.h"
-#include "common/util.h"
-#include "common/str.h"
-#include "common/hashmap.h"
-#include "common/hash-str.h"
-#include "common/random.h"
-
-#include "engines/engine.h"
+#include "hanekawa/hanekawa.h"
+#include "hanekawa/script.h"
 
 namespace Hanekawa {
-struct HanekawaGameDescription;
-class Console;
-class Core;
-class Text;
-class Sound;
-
-
-
-class HanekawaEngine : public Engine {
-public:
-	HanekawaEngine(OSystem *syst, const HanekawaGameDescription *gameDesc);
-	virtual ~HanekawaEngine();
-
-	int getGameType() const;
-	uint32 getFeatures() const;
-
-	Common::Language getLanguage() const;
-	Common::Platform getPlatform() const;
-
-	const HanekawaGameDescription *_gameDescription;
-	Common::RandomSource _rng;
-
-	Core *_core;
-	
-
-
-protected:
-	virtual Common::Error run() override;
-	virtual bool hasFeature(EngineFeature f) const override;
-
-	void initialize();
-	void shutdown();
-
-	Console *_console;
-
-	uint _curCursor;
-	uint _elapsedFrames;
-	int _videoNum;
-};
 
 } // End of namespace Hanekawa
-
-#endif // end HANEKAWA_HANEKAWA_H

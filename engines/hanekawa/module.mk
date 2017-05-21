@@ -1,12 +1,11 @@
 MODULE := engines/hanekawa
 
-MODULE_OBJS := 
+MODULE_OBJS :=  \
 	maya/agenda.o \
 	maya/analysis.o \
 	maya/argacces.o \
 	maya/bload.o \
 	maya/bmathfun.o \
-	maya/boost.o \
 	maya/bsave.o \
 	maya/classcom.o \
 	maya/classexm.o \
@@ -171,7 +170,7 @@ MODULE_OBJS :=
 
 
 # this module can be build as a plugin
-ifeq($(ENABLE_HANEKAWA), DYNAMIC_PLUGIN)
+ifeq ($(ENABLE_HANEKAWA), DYNAMIC_PLUGIN)
 	PLUGIN := 1
 endif 
 

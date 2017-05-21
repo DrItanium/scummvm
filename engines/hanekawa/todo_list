@@ -1,0 +1,5 @@
+- Install io routers for scummvm debugging
+- Hook the debugger up to IO router system
+- Add graphics support
+- Add audio functions
+- Add text input functions

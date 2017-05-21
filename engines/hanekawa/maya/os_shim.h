@@ -24,16 +24,4 @@
 #ifndef __OS_SHIM_H__
 #define __OS_SHIM_H__
 #include "platform.h"
-
-#if defined(PLATFORM_LINUX)
-	#define LINUX 1
-#elif defined(PLATFORM_OSX) || defined(PLATFORM_IOS) || defined(PLATFORM_APPLE_UNKNOWN)
-	#define DARWIN 1
-#elif defined(PLATFORM_FREEBSD) || defined(PLATFORM_OPENBSD) || defined(PLATFORM_NETBSD) || defined(PLATFORM_DRAGONFLYBSD)
-	#define UNIX_V 1
-#elif defined(PLATFORM_NT)
-	#define WIN_MVC 1
-#else
-#endif
-
 #endif // end __OS_SHIM_H__

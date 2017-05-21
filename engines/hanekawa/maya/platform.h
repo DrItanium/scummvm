@@ -23,35 +23,8 @@
 
 #ifndef __PLATFORM_H__
 #define __PLATFORM_H__
-
-#if defined(__linux__)
-	#if (defined(__ANDROID__) || defined(__android__)) 
-		#define PLATFORM_ANDROID
-	#else
-		#define PLATFORM_LINUX
-	#endif
-#elif defined(__APPLE__)
-	#include "TargetConditionals.h"
-	#if TARGET_OS_MAC
-		#define PLATFORM_OSX
-	#elif TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-		#define PLATFORM_IOS
-	#else
-		#define PLATFORM_APPLE_UNKNOWN
-	#endif
-#elif defined(__FreeBSD__)
-	#define PLATFORM_FREEBSD
-#elif defined(__OpenBSD__)
-	#define PLATFORM_OPENBSD
-#elif defined(__NetBSD__)
-	#define PLATFORM_NETBSD
-#elif defined(__DragonFlyBSD__)
-	#define PLATFORM_DRAGONFLYBSD
-#elif defined(_WIN32) || defined(_WIN64)
-	#define PLATFORM_NT
-#else
-	#warning "Couldn't identify target platform, enabling generic"
-	#define PLATFORM_GENERIC
-#endif
+// we don't care about the platform since we're using scummvm to factor all of
+// that crap out
+#define PLATFORM_GENERIC
 
 #endif // end __PLATFORM_H__
